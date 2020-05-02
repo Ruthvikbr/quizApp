@@ -33,7 +33,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             case R.id.settings_fragment :
-                Log.i("mainActivity","Settings");
+                Intent intent1 = new Intent(MainActivity.this,SettingsActivity.class);
+                startActivity(intent1);
                 return true;
             default:  return super.onOptionsItemSelected(item);
         }
