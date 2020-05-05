@@ -2,6 +2,10 @@ package com.kotlinapps.quizapp.database;
 
 import android.app.Application;
 
+import androidx.lifecycle.LiveData;
+import androidx.paging.LivePagedListBuilder;
+import androidx.paging.PagedList;
+
 import com.kotlinapps.quizapp.data.State;
 
 import java.util.concurrent.ExecutorService;
@@ -12,8 +16,8 @@ public class StateRepository {
     private static StateRepository REPOSITORY = null;
 
     private StateDao mStateDao;
-
-    ExecutorService executor = Executors.newSingleThreadExecutor();
+    private int PAGE_SIZE = 15;
+    private ExecutorService executor = Executors.newSingleThreadExecutor();
 
     private StateRepository(Application application){
         StateDatabase db = StateDatabase.getDatabase(application);
@@ -56,6 +60,13 @@ public class StateRepository {
                 mStateDao.updateState(state);
             }
         });
+    }
+
+    public LiveData<PagedList<State>> getAllStates(){
+        return new LivePagedListBuilder<>(
+                mStateDao.getAllStates(),
+                PAGE_SIZE
+        ).build();
     }
 
 }

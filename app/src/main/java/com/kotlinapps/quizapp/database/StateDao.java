@@ -1,6 +1,7 @@
 package com.kotlinapps.quizapp.database;
 
 import androidx.lifecycle.LiveData;
+import androidx.paging.DataSource;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -24,6 +25,6 @@ public interface StateDao {
     void updateState(State state);
 
     @Query("SELECT * FROM State")
-    LiveData<List<State>> getAllStates();
+    DataSource.Factory<Integer,State> getAllStates();
 
 }
