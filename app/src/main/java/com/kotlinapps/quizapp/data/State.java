@@ -55,4 +55,7 @@ public class State {
     public void setCapitalName(String capitalName) {
         CapitalName = capitalName;
     }
+    public boolean equals(State s2) {
+        return (StateName == s2.getStateName() && CapitalName == s2.getCapitalName());
+    }
 }
