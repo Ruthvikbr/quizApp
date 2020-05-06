@@ -30,6 +30,7 @@ public class addActivity extends AppCompatActivity {
                 if(!StateName.isEmpty() && !CapitalName.isEmpty()){
                     State state = new State(StateName,CapitalName);
                     viewModel.insertState(state);
+
                 }
             }
         });

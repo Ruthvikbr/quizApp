@@ -20,6 +20,8 @@ public class State {
     @ColumnInfo(name ="Capital")
     private String CapitalName;
 
+    public State(){}
+
     public State(@NonNull String stateName, @NonNull  String capitalName) {
         StateName = stateName;
         CapitalName = capitalName;

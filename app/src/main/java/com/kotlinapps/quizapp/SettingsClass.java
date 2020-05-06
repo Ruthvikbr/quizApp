@@ -1,7 +1,7 @@
 package com.kotlinapps.quizapp;
 
 import android.os.Bundle;
-import android.preference.PreferenceFragment;
+
 
 import androidx.preference.PreferenceFragmentCompat;
 
