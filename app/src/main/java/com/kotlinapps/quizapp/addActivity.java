@@ -31,8 +31,12 @@ public class addActivity extends AppCompatActivity {
                     State state = new State(StateName,CapitalName);
                     viewModel.insertState(state);
 
+
                 }
+                setResult(RESULT_OK);
+                finish();
             }
+
         });
     }
 }
