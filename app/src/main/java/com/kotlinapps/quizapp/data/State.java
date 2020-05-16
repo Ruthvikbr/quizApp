@@ -22,12 +22,13 @@ public class State {
 
     public State(){}
 
+    @Ignore
     public State(@NonNull String stateName, @NonNull  String capitalName) {
         StateName = stateName;
         CapitalName = capitalName;
     }
 
-    @Ignore
+
     public State(long stateID, @NonNull String stateName,@NonNull String capitalName) {
         StateID = stateID;
         StateName = stateName;

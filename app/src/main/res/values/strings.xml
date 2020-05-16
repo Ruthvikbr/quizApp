@@ -5,4 +5,5 @@
     <string name="state_name">State Name</string>
     <string name="capital_name">Captal Name</string>
     <string name="add">ADD</string>
+    <string name="save">Save</string>
 </resources>
