@@ -1,6 +1,5 @@
 package com.kotlinapps.quizapp.database;
 
-import androidx.lifecycle.LiveData;
 import androidx.paging.DataSource;
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -10,7 +9,7 @@ import androidx.room.Update;
 
 import com.kotlinapps.quizapp.data.State;
 
-import java.util.List;
+
 
 @Dao
 public interface StateDao {
