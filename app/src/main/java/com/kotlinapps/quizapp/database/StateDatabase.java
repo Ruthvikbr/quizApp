@@ -62,7 +62,7 @@ public abstract class StateDatabase  extends RoomDatabase {
         StringBuilder stringBuilder = new StringBuilder();
         String json = "";
         try {
-            bufferedReader = new BufferedReader(new InputStreamReader(assetManager.open("sate-capital.json")));
+            bufferedReader = new BufferedReader(new InputStreamReader(assetManager.open("state-capital.json")));
             String mLine;
             while ((mLine = bufferedReader.readLine()) != null) {
                 stringBuilder.append(mLine);
