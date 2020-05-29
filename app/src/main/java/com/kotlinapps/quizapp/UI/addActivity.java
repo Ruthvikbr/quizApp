@@ -1,4 +1,4 @@
-package com.kotlinapps.quizapp;
+package com.kotlinapps.quizapp.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.kotlinapps.quizapp.R;
+import com.kotlinapps.quizapp.StateViewModel;
 import com.kotlinapps.quizapp.data.State;
 
 public class addActivity extends AppCompatActivity {

@@ -1,14 +1,15 @@
-package com.kotlinapps.quizapp;
+package com.kotlinapps.quizapp.UI;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+
+import com.kotlinapps.quizapp.R;
 
 public class MainActivity extends AppCompatActivity {
 

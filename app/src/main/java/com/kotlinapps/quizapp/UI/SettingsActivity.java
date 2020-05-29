@@ -1,8 +1,10 @@
-package com.kotlinapps.quizapp;
+package com.kotlinapps.quizapp.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.kotlinapps.quizapp.R;
 
 public class SettingsActivity extends AppCompatActivity {
 

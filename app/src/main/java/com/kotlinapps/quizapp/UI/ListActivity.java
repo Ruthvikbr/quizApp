@@ -1,4 +1,4 @@
-package com.kotlinapps.quizapp;
+package com.kotlinapps.quizapp.UI;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +19,9 @@ import android.view.View;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
+import com.kotlinapps.quizapp.R;
+import com.kotlinapps.quizapp.StatePagingAdapter;
+import com.kotlinapps.quizapp.StateViewModel;
 import com.kotlinapps.quizapp.data.State;
 
 public class ListActivity extends AppCompatActivity {

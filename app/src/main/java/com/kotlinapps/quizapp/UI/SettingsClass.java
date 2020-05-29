@@ -1,9 +1,11 @@
-package com.kotlinapps.quizapp;
+package com.kotlinapps.quizapp.UI;
 
 import android.os.Bundle;
 
 
 import androidx.preference.PreferenceFragmentCompat;
+
+import com.kotlinapps.quizapp.R;
 
 public class SettingsClass extends PreferenceFragmentCompat {
 
