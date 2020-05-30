@@ -8,15 +8,17 @@ import androidx.paging.PagedList;
 
 import com.kotlinapps.quizapp.data.State;
 
+import java.util.List;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class StateRepository {
 
     private static StateRepository REPOSITORY = null;
 
     private StateDao mStateDao;
-    private int PAGE_SIZE = 15;
     private ExecutorService executor = Executors.newSingleThreadExecutor();
 
     private StateRepository(Application application){
@@ -63,10 +65,21 @@ public class StateRepository {
     }
 
     public LiveData<PagedList<State>> getAllStates(){
+        int PAGE_SIZE = 15;
         return new LivePagedListBuilder<>(
                 mStateDao.getAllStates(),
                 PAGE_SIZE
         ).build();
+    }
+
+    public Future<List<State>> getQuizStates(){
+        Callable<List<State>>  callable = new Callable<List<State>>() {
+            @Override
+            public List<State> call() throws Exception {
+                return mStateDao.getQuizStates();
+            }
+        };
+        return executor.submit(callable);
     }
 
 }
