@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".UI.SettingsActivity">
-<androidx.fragment.app.FragmentContainerView
+<fragment
     android:id="@+id/settings_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:name="com.kotlinapps.quizapp.SettingsClass"
+    android:name="com.kotlinapps.quizapp.UI.SettingsClass"
     />
 </LinearLayout>

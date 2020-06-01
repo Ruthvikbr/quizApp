@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.DiffUtil;
 import com.kotlinapps.quizapp.data.State;
 
 public class StatePagingAdapter extends PagedListAdapter<State,StateViewHolder> {
-    protected StatePagingAdapter() {
+    public StatePagingAdapter() {
         super(DIFF_CALLBACK);
     }
     private ClickListener clickListener;

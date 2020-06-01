@@ -18,6 +18,8 @@ public class quizViewModel extends AndroidViewModel {
     public quizViewModel(@NonNull Application application) {
         super(application);
         stateRepository = StateRepository.getStateRepository(application);
+        loadGame();
+
     }
 
     private void loadGame(){

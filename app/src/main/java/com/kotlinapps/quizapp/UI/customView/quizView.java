@@ -52,8 +52,11 @@ public class quizView extends LinearLayout {
         correctState = states.get(correctOption);
 
         TextView questionTextView = new TextView(getContext());
-        String question = "What is the State of " + correctState.getStateName();
+        String question = "What is the Capital of " + correctState.getStateName() + " ?";
         questionTextView.setText(question);
+        questionTextView.setPadding(20,20,20,20);
+        questionTextView.setTextColor(getResources().getColor(android.R.color.black));
+        questionTextView.setTextSize(24);
         this.addView(questionTextView);
 
         this.addView(optionStates);
