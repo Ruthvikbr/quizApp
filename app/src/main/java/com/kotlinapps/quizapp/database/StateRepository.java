@@ -2,6 +2,7 @@ package com.kotlinapps.quizapp.database;
 
 import android.app.Application;
 
+import androidx.annotation.WorkerThread;
 import androidx.lifecycle.LiveData;
 import androidx.paging.LivePagedListBuilder;
 import androidx.paging.PagedList;
@@ -21,15 +22,15 @@ public class StateRepository {
     private StateDao mStateDao;
     private ExecutorService executor = Executors.newSingleThreadExecutor();
 
-    private StateRepository(Application application){
+    private StateRepository(Application application) {
         StateDatabase db = StateDatabase.getDatabase(application);
         mStateDao = db.stateDao();
     }
 
-    public static StateRepository getStateRepository(Application application){
+    public static StateRepository getStateRepository(Application application) {
         if (REPOSITORY == null) {
-            synchronized (StateRepository.class){
-                if (REPOSITORY == null){
+            synchronized (StateRepository.class) {
+                if (REPOSITORY == null) {
                     REPOSITORY = new StateRepository(application);
                 }
             }
@@ -37,7 +38,7 @@ public class StateRepository {
         return REPOSITORY;
     }
 
-    public void insertState(final State state){
+    public void insertState(final State state) {
         executor.execute(new Runnable() {
             @Override
             public void run() {
@@ -46,7 +47,7 @@ public class StateRepository {
         });
     }
 
-    public void deleteState(final State state){
+    public void deleteState(final State state) {
         executor.execute(new Runnable() {
             @Override
             public void run() {
@@ -55,7 +56,7 @@ public class StateRepository {
         });
     }
 
-    public void updateState(final State state){
+    public void updateState(final State state) {
         executor.execute(new Runnable() {
             @Override
             public void run() {
@@ -64,7 +65,7 @@ public class StateRepository {
         });
     }
 
-    public LiveData<PagedList<State>> getAllStates(){
+    public LiveData<PagedList<State>> getAllStates() {
         int PAGE_SIZE = 15;
         return new LivePagedListBuilder<>(
                 mStateDao.getAllStates(),
@@ -72,14 +73,19 @@ public class StateRepository {
         ).build();
     }
 
-    public Future<List<State>> getQuizStates(){
-        Callable<List<State>>  callable = new Callable<List<State>>() {
+    public Future<List<State>> getQuizStates() {
+        Callable<List<State>> callable = new Callable<List<State>>() {
             @Override
             public List<State> call() throws Exception {
                 return mStateDao.getQuizStates();
             }
         };
         return executor.submit(callable);
+    }
+
+    @WorkerThread
+    public State getRandomState() {
+        return mStateDao.getRandomState();
     }
 
 }

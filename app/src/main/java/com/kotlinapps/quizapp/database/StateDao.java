@@ -10,7 +10,7 @@ import androidx.room.Update;
 import com.kotlinapps.quizapp.data.State;
 
 import java.util.List;
-import java.util.concurrent.Future;
+
 
 
 @Dao
@@ -30,5 +30,8 @@ public interface StateDao {
 
     @Query("SELECT DISTINCT * FROM State ORDER BY RANDOM() LIMIT 4")
     List<State> getQuizStates();
+
+    @Query("SELECT * FROM State ORDER BY RANDOM() LIMIT 1")
+    State getRandomState();
 
 }
