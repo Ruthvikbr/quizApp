@@ -18,7 +18,6 @@ import java.util.concurrent.Future;
 public class StateRepository {
 
     private static StateRepository REPOSITORY = null;
-
     private StateDao mStateDao;
     private ExecutorService executor = Executors.newSingleThreadExecutor();
 

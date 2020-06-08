@@ -10,18 +10,21 @@ import androidx.recyclerview.widget.DiffUtil;
 
 import com.kotlinapps.quizapp.data.State;
 
-public class StatePagingAdapter extends PagedListAdapter<State,StateViewHolder> {
+public class StatePagingAdapter extends PagedListAdapter<State, StateViewHolder> {
+
+
+    private ClickListener clickListener;
+
     public StatePagingAdapter() {
         super(DIFF_CALLBACK);
     }
-    private ClickListener clickListener;
 
     @NonNull
     @Override
     public StateViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View itemView = layoutInflater.inflate(R.layout.list_item,parent,false);
+        View itemView = layoutInflater.inflate(R.layout.list_item, parent, false);
 
         return new StateViewHolder(itemView);
     }
@@ -29,29 +32,29 @@ public class StatePagingAdapter extends PagedListAdapter<State,StateViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull StateViewHolder holder, final int position) {
         final State currentItem = getItem(position);
-        if(currentItem!= null){
+        if (currentItem != null) {
             holder.bind(currentItem);
 
-            if(clickListener!=null){
+            if (clickListener != null) {
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        clickListener.onItemClick(v,position);
+                        clickListener.onItemClick(v, position);
                     }
                 });
             }
         }
     }
 
-    public void setItemOnClickListener(ClickListener clickListener){
+    public void setItemOnClickListener(ClickListener clickListener) {
         this.clickListener = clickListener;
     }
 
-    public interface ClickListener{
-        void onItemClick(View view,int position);
+    public interface ClickListener {
+        void onItemClick(View view, int position);
     }
 
-    public State getStateAtPosition(int position){
+    public State getStateAtPosition(int position) {
         return getItem(position);
     }
 
