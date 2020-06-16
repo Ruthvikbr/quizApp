@@ -13,13 +13,14 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class quizViewModel extends AndroidViewModel {
+
     public MutableLiveData<List<State>> states = new MutableLiveData<>();
     private StateRepository stateRepository;
+
     public quizViewModel(@NonNull Application application) {
         super(application);
         stateRepository = StateRepository.getStateRepository(application);
         loadGame();
-
     }
 
     private void loadGame(){

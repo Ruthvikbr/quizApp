@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 public class QuizViewModelFactory extends ViewModelProvider.AndroidViewModelFactory {
+
     private Application application;
 
     public QuizViewModelFactory(@NonNull Application application) {

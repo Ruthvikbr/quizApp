@@ -6,12 +6,14 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.paging.PagedList;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ActionBar;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,7 +35,9 @@ public class ListActivity extends AppCompatActivity {
     public static final String EXTRA_DATA_STATE_CAPITAL = "extra_state_capital_to_be_updated";
     public static final String EXTRA_DATA_ID = "extra_data_id";
     private StateViewModel viewModel;
-    private  State DeleteState;
+    private State DeleteState;
+
+    private SharedPreferences sortPreference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,23 +45,29 @@ public class ListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list);
         FloatingActionButton add = findViewById(R.id.add);
         ActionBar actionBar = getActionBar();
-        if(actionBar!=null){
+        if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ListActivity.this,addActivity.class);
-                startActivityForResult(intent,NEW_STATE_REQUEST_CODE);
+                Intent intent = new Intent(ListActivity.this, addActivity.class);
+                startActivityForResult(intent, NEW_STATE_REQUEST_CODE);
             }
         });
 
-         viewModel = new ViewModelProvider(this).get(StateViewModel.class);
+        viewModel = new ViewModelProvider(this).get(StateViewModel.class);
+
+        sortPreference = PreferenceManager.getDefaultSharedPreferences(this);
+        String s = sortPreference.getString("Sort_Preference","StateID");
+        viewModel.changeSortOrder(s);
+
         RecyclerView recyclerView = findViewById(R.id.statesList);
         final StatePagingAdapter statePagingAdapter = new StatePagingAdapter();
         recyclerView.setAdapter(statePagingAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         viewModel.pagedListLiveData.observe(this, new Observer<PagedList<State>>() {
                     @Override
                     public void onChanged(PagedList<State> states) {
@@ -67,8 +77,10 @@ public class ListActivity extends AppCompatActivity {
 
         );
 
+        sortPreference.registerOnSharedPreferenceChangeListener(listener);
+
         ConstraintLayout constraintLayout = findViewById(R.id.listLayout);
-        final Snackbar snackbar = Snackbar.make(constraintLayout,"State Deleted", BaseTransientBottomBar.LENGTH_LONG)
+        final Snackbar snackbar = Snackbar.make(constraintLayout, "State Deleted", BaseTransientBottomBar.LENGTH_LONG)
                 .setAction("UNDO", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -76,7 +88,7 @@ public class ListActivity extends AppCompatActivity {
                     }
                 });
 
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                 return false;
@@ -113,10 +125,26 @@ public class ListActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId()== android.R.id.home){
+        if (item.getItemId() == android.R.id.home) {
             this.finish();
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private SharedPreferences.OnSharedPreferenceChangeListener listener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+        @Override
+        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+            if(key.equals("Sort_Preference")){
+                String s = sortPreference.getString(key,"StateID");
+                viewModel.changeSortOrder(s);
+            }
+        }
+    };
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        sortPreference.unregisterOnSharedPreferenceChangeListener(listener);
     }
 }

@@ -1,11 +1,15 @@
 package com.kotlinapps.quizapp.database;
 
+import android.database.sqlite.SQLiteQuery;
+
 import androidx.paging.DataSource;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.RawQuery;
 import androidx.room.Update;
+import androidx.sqlite.db.SupportSQLiteQuery;
 
 import com.kotlinapps.quizapp.data.State;
 
@@ -34,4 +38,12 @@ public interface StateDao {
     @Query("SELECT * FROM State ORDER BY RANDOM() LIMIT 1")
     State getRandomState();
 
+    @RawQuery(observedEntities = State.class)
+    DataSource.Factory<Integer,State> getSortedStates(SupportSQLiteQuery sqLiteQuery);
+
 }
+
+
+
+
+

@@ -29,9 +29,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         viewModel = new ViewModelProvider(this, new QuizViewModelFactory(this.getApplication())).get(quizViewModel.class);
-        view = findViewById(R.id.quizView);
+        view =  findViewById(R.id.quizView);
 
         viewModel.states.observe(this, new Observer<List<State>>() {
+
             @Override
             public void onChanged(List<State> states) {
                 if(states != null){

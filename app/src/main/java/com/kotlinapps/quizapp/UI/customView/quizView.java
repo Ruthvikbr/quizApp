@@ -17,7 +17,6 @@ import java.util.Random;
 
 public class quizView extends LinearLayout {
 
-    private State correctState;
     private RadioGroup optionStates;
     private int correctOptionId;
 
@@ -49,7 +48,7 @@ public class quizView extends LinearLayout {
         Random random = new Random(System.currentTimeMillis());
         int correctOption = random.nextInt(4);
 
-        correctState = states.get(correctOption);
+        State correctState = states.get(correctOption);
 
         TextView questionTextView = new TextView(getContext());
         String question = "What is the Capital of " + correctState.getStateName() + " ?";
@@ -57,9 +56,11 @@ public class quizView extends LinearLayout {
         questionTextView.setPadding(20,20,20,20);
         questionTextView.setTextColor(getResources().getColor(android.R.color.black));
         questionTextView.setTextSize(24);
+
         this.addView(questionTextView);
 
         this.addView(optionStates);
+
         RadioButton[] options = new RadioButton[4];
 
         options[correctOption] = new RadioButton(getContext());
@@ -67,12 +68,12 @@ public class quizView extends LinearLayout {
         options[correctOption].setText(correctState.getCapitalName());
         correctOptionId = options[correctOption].getId();
 
-        for(int i = 0,j=0;i<4;i++,j++){
-            if(i==correctOption){
+
+        for(int i = 0,j=0;i<4;i++,j++) {
+            if (i == correctOption) {
                 optionStates.addView(options[correctOption]);
                 continue;
-            }
-            else {
+            } else {
                 options[i] = new RadioButton(getContext());
                 options[i].setId(View.generateViewId());
                 options[i].setText(states.get(j).getCapitalName());
