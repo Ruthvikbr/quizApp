@@ -11,4 +11,14 @@
         <item>StateID</item>
         <item>Capital</item>
     </array>
+
+    <array name="number_of_options">
+        <item>Three</item>
+        <item>Four</item>
+    </array>
+
+    <array name="number_of_options_values">
+        <item>3</item>
+        <item>4</item>
+    </array>
 </resources>
