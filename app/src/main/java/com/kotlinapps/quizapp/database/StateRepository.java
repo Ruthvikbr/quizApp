@@ -22,7 +22,6 @@ public class StateRepository {
     private static StateRepository REPOSITORY = null;
     private StateDao mStateDao;
     private ExecutorService executor = Executors.newSingleThreadExecutor();
-    private final int PAGE_SIZE = 15;
 
     private StateRepository(Application application) {
         StateDatabase db = StateDatabase.getDatabase(application);
@@ -67,13 +66,13 @@ public class StateRepository {
         });
     }
 
-    public LiveData<PagedList<State>> getAllStates() {
-
-        return new LivePagedListBuilder<>(
-                mStateDao.getAllStates(),
-                PAGE_SIZE
-        ).build();
-    }
+//    public LiveData<PagedList<State>> getAllStates() {
+//
+//        return new LivePagedListBuilder<>(
+//                mStateDao.getAllStates(),
+//                PAGE_SIZE
+//        ).build();
+//    }
 
     public Future<List<State>> getQuizStates() {
         Callable<List<State>> callable = new Callable<List<State>>() {
@@ -92,6 +91,7 @@ public class StateRepository {
 
 
     public LiveData<PagedList<State>> getStatesInSortedOrder(String sortOrder){
+        int PAGE_SIZE = 15;
         return new LivePagedListBuilder<>(
                 mStateDao.getSortedStates(constructQuery(sortOrder)),
                 PAGE_SIZE
@@ -101,6 +101,16 @@ public class StateRepository {
     public SupportSQLiteQuery constructQuery(String sortBy){
         String query = "SELECT * FROM State ORDER BY "+sortBy+" ASC";
         return new SimpleSQLiteQuery(query);
+    }
+
+    public Future<List<State>> getQuizStates(final int Value) {
+        Callable<List<State>> callable = new Callable<List<State>>() {
+            @Override
+            public List<State> call() throws Exception {
+                return mStateDao.getQuizStates(Value);
+            }
+        };
+        return executor.submit(callable);
     }
 
 
