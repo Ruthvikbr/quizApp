@@ -3,7 +3,17 @@
     <string name="list">list</string>
     <string name="settings">settings</string>
     <string name="state_name">State Name</string>
-    <string name="capital_name">Captal Name</string>
+    <string name="capital_name">Capital Name</string>
     <string name="add">ADD</string>
     <string name="save">Save</string>
+    <string name="pref_night_auto" translatable="false">AUTO</string>
+    <string name="pref_night_on" translatable="false">ON</string>
+    <string name="pref_night_off" translatable="false">OFF</string>
+    <string name="night_mode_auto">Automatic</string>
+    <string name="night_mode_on">Night mode</string>
+    <string name="night_mode_off">Day mode</string>
+    <string name="pref_night_dialog">Set Night mode</string>
+    <string name="pref_key_night" translatable="false">key_night_mode</string>
+    <string name="pref_night_title">Night mode</string>
+    <string name="pref_night_summary">Select a dark or light theme.</string>
 </resources>

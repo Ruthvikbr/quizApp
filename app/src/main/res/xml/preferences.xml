@@ -15,11 +15,13 @@
         android:key="Sort_Preference"
         />
 
-    <ListPreference
-        android:defaultValue="4"
-        android:entries="@array/number_of_options"
-        android:entryValues="@array/number_of_options_values"
-        android:title="Number Of Options"
-        android:key="Option_preference"
-        />
+
+    <androidx.preference.ListPreference
+        android:defaultValue="@string/pref_night_auto"
+        android:dialogTitle="@string/pref_night_dialog"
+        android:entries="@array/night_mode"
+        android:entryValues="@array/night_mode_value"
+        android:key="@string/pref_key_night"
+        android:summary="@string/pref_night_summary"
+        android:title="@string/pref_night_title" />
 </PreferenceScreen>

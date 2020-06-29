@@ -1,13 +1,15 @@
 package com.kotlinapps.quizapp.UI;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreference;
 import androidx.work.ExistingPeriodicWorkPolicy;
-import androidx.work.ExistingWorkPolicy;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
@@ -15,6 +17,7 @@ import com.kotlinapps.quizapp.R;
 import com.kotlinapps.quizapp.utils.NotificationWorker;
 
 import java.util.Calendar;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class SettingsClass extends PreferenceFragmentCompat {
@@ -55,5 +58,24 @@ public class SettingsClass extends PreferenceFragmentCompat {
 
             }
         });
+
+        //Dark Mode Preference
+        ListPreference darkMode = findPreference(getResources().getString(R.string.pref_key_night));
+        darkMode.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                String appTheme = (String) newValue;
+                NightMode.NightModeEnum value = NightMode.NightModeEnum.valueOf(appTheme.toUpperCase(Locale.US));
+                updateTheme(value.value);
+                return true;
+            }
+        });
+
+    }
+
+    private void updateTheme(int mode) {
+        Toast.makeText(getContext(), ""+mode, Toast.LENGTH_SHORT).show();
+        AppCompatDelegate.setDefaultNightMode(mode);
+        requireActivity().recreate();
     }
 }
