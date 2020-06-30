@@ -17,22 +17,22 @@ public class quizViewModel extends AndroidViewModel {
     public MutableLiveData<List<State>> states = new MutableLiveData<>();
     private StateRepository stateRepository;
 
-    public quizViewModel(@NonNull Application application) {
+    public quizViewModel(@NonNull Application application,int optionCount) {
         super(application);
         stateRepository = StateRepository.getStateRepository(application);
-        loadGame();
+        loadGame(optionCount);
     }
 
-    private void loadGame(){
-        try{
-            states.postValue(stateRepository.getQuizStates().get());
+    private void loadGame(int optionCount){
 
+        try{
+            states.postValue(stateRepository.getQuizStates(optionCount).get());
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
     }
 
-    public  void refreshGame(){
-        loadGame();
+    public  void refreshGame(int optionCount){
+        loadGame(optionCount);
     }
 }

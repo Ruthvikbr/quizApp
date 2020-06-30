@@ -4,18 +4,23 @@
     <SwitchPreference
         android:defaultValue="false"
         android:key="Notification_preference"
-        android:title="Daily Notifications"
         android:summary="Turn on to receive daily notifications"
-        />
+        android:title="Daily Notifications" />
+
     <ListPreference
         android:defaultValue="StateName"
         android:entries="@array/sorting_methods_names"
         android:entryValues="@array/sorting_methods_values"
-        android:title="Sort By"
         android:key="Sort_Preference"
+        android:title="Sort By" />
+
+    <ListPreference
+        android:defaultValue="Four"
+        android:entries="@array/number_of_options"
+        android:entryValues="@array/number_of_options_values"
+        android:key="options_preference"
+        android:title="Number Of Options"
         />
-
-
     <androidx.preference.ListPreference
         android:defaultValue="@string/pref_night_auto"
         android:dialogTitle="@string/pref_night_dialog"

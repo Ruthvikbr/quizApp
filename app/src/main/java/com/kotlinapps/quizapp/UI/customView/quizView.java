@@ -44,9 +44,9 @@ public class quizView extends LinearLayout {
         this.listener = optionsClickListener;
     }
 
-    public void setData(List<State> states){
+    public void setData(List<State> states,int value){
         Random random = new Random(System.currentTimeMillis());
-        int correctOption = random.nextInt(4);
+        int correctOption = random.nextInt(value);
 
         State correctState = states.get(correctOption);
 
@@ -61,7 +61,7 @@ public class quizView extends LinearLayout {
 
         this.addView(optionStates);
 
-        RadioButton[] options = new RadioButton[4];
+        RadioButton[] options = new RadioButton[value];
 
         options[correctOption] = new RadioButton(getContext());
         options[correctOption].setId(View.generateViewId());
@@ -69,7 +69,7 @@ public class quizView extends LinearLayout {
         correctOptionId = options[correctOption].getId();
 
 
-        for(int i = 0,j=0;i<4;i++,j++) {
+        for(int i = 0,j=0;i<value;i++,j++) {
             if (i == correctOption) {
                 optionStates.addView(options[correctOption]);
                 continue;

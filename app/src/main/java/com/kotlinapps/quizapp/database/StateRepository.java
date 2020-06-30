@@ -77,7 +77,7 @@ public class StateRepository {
     public Future<List<State>> getQuizStates() {
         Callable<List<State>> callable = new Callable<List<State>>() {
             @Override
-            public List<State> call() throws Exception {
+            public List<State> call() {
                 return mStateDao.getQuizStates();
             }
         };
@@ -98,20 +98,28 @@ public class StateRepository {
         ).build();
     }
 
-    public SupportSQLiteQuery constructQuery(String sortBy){
+    private SupportSQLiteQuery constructQuery(String sortBy){
         String query = "SELECT * FROM State ORDER BY "+sortBy+" ASC";
         return new SimpleSQLiteQuery(query);
     }
 
+
     public Future<List<State>> getQuizStates(final int Value) {
         Callable<List<State>> callable = new Callable<List<State>>() {
             @Override
-            public List<State> call() throws Exception {
-                return mStateDao.getQuizStates(Value);
+            public List<State> call() {
+                return mStateDao.getQuizStates(constructQuizStatesQuery(Value));
             }
         };
         return executor.submit(callable);
     }
+
+    private SupportSQLiteQuery constructQuizStatesQuery(int value){
+        String query = "SELECT DISTINCT * FROM State ORDER BY RANDOM() LIMIT "+value;
+        return new SimpleSQLiteQuery(query);
+    }
+
+
 
 
 }

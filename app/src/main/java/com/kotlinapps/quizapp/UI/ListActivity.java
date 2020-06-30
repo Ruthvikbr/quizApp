@@ -61,6 +61,7 @@ public class ListActivity extends AppCompatActivity {
 
         sortPreference = PreferenceManager.getDefaultSharedPreferences(this);
         String s = sortPreference.getString("Sort_Preference","StateID");
+
         viewModel.changeSortOrder(s);
 
         RecyclerView recyclerView = findViewById(R.id.statesList);

@@ -18,8 +18,8 @@
     </array>
 
     <array name="number_of_options_values">
-        <item>3</item>
-        <item>4</item>
+        <item>three</item>
+        <item>four</item>
     </array>
 
     <string-array name="night_mode">

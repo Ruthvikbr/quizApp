@@ -71,10 +71,11 @@ public class SettingsClass extends PreferenceFragmentCompat {
             }
         });
 
+
+
     }
 
     private void updateTheme(int mode) {
-        Toast.makeText(getContext(), ""+mode, Toast.LENGTH_SHORT).show();
         AppCompatDelegate.setDefaultNightMode(mode);
         requireActivity().recreate();
     }

@@ -3,7 +3,6 @@ package com.kotlinapps.quizapp.UI;
 
 import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.rule.ActivityTestRule;
 
 
 import com.kotlinapps.quizapp.R;
