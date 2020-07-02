@@ -33,7 +33,8 @@ public class MainActivity extends AppCompatActivity {
 
         optionsPreference = PreferenceManager.getDefaultSharedPreferences(this);
         optionsPreference.registerOnSharedPreferenceChangeListener(listener);
-        final String optionCount = optionsPreference.getString("options_preference","Four");
+
+        String optionCount = optionsPreference.getString("options_preference","Four");
         final int value;
         if(optionCount.equals("four")){
             value = 4;
@@ -41,12 +42,10 @@ public class MainActivity extends AppCompatActivity {
         else{
             value = 3;
         }
-
         viewModel = new ViewModelProvider(this, new QuizViewModelFactory(this.getApplication(),value)).get(quizViewModel.class);
         view =  findViewById(R.id.quizView);
 
         viewModel.states.observe(this, new Observer<List<State>>() {
-
             @Override
             public void onChanged(List<State> states) {
                 if(states != null){
@@ -97,8 +96,8 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             default:  return super.onOptionsItemSelected(item);
         }
-
     }
+
     private SharedPreferences.OnSharedPreferenceChangeListener listener = new SharedPreferences.OnSharedPreferenceChangeListener() {
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
@@ -122,5 +121,4 @@ public class MainActivity extends AppCompatActivity {
         super.onStop();
         optionsPreference.unregisterOnSharedPreferenceChangeListener(listener);
     }
-
 }

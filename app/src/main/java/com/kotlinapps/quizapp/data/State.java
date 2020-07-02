@@ -13,7 +13,7 @@ public class State {
     private long StateID;
 
     @NonNull
-    @ColumnInfo(name ="State")
+    @ColumnInfo(name ="StateName")
     private String StateName;
 
     @NonNull

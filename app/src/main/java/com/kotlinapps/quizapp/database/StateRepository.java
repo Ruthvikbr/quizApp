@@ -70,19 +70,19 @@ public class StateRepository {
 //
 //        return new LivePagedListBuilder<>(
 //                mStateDao.getAllStates(),
-//                PAGE_SIZE
+//                15
 //        ).build();
 //    }
-
-    public Future<List<State>> getQuizStates() {
-        Callable<List<State>> callable = new Callable<List<State>>() {
-            @Override
-            public List<State> call() {
-                return mStateDao.getQuizStates();
-            }
-        };
-        return executor.submit(callable);
-    }
+//
+//    public Future<List<State>> getQuizStates() {
+//        Callable<List<State>> callable = new Callable<List<State>>() {
+//            @Override
+//            public List<State> call() {
+//                return mStateDao.getQuizStates();
+//            }
+//        };
+//        return executor.submit(callable);
+//    }
 
     @WorkerThread
     public State getRandomState() {
@@ -105,9 +105,10 @@ public class StateRepository {
 
 
     public Future<List<State>> getQuizStates(final int Value) {
-        Callable<List<State>> callable = new Callable<List<State>>() {
+        Callable< List<State>> callable = new Callable< List<State>>() {
+
             @Override
-            public List<State> call() {
+            public  List<State> call()  {
                 return mStateDao.getQuizStates(constructQuizStatesQuery(Value));
             }
         };

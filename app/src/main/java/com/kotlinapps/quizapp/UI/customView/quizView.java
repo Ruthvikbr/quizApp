@@ -54,7 +54,6 @@ public class quizView extends LinearLayout {
         String question = "What is the Capital of " + correctState.getStateName() + " ?";
         questionTextView.setText(question);
         questionTextView.setPadding(20,20,20,20);
-        questionTextView.setTextColor(getResources().getColor(android.R.color.black));
         questionTextView.setTextSize(24);
 
         this.addView(questionTextView);

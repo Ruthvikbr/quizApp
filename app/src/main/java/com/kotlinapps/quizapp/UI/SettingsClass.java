@@ -59,8 +59,8 @@ public class SettingsClass extends PreferenceFragmentCompat {
             }
         });
 
-        //Dark Mode Preference
-        ListPreference darkMode = findPreference(getResources().getString(R.string.pref_key_night));
+
+        ListPreference darkMode = findPreference(getString(R.string.pref_key_night));
         darkMode.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
