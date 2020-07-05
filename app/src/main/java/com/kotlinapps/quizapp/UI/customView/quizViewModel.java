@@ -1,6 +1,7 @@
 package com.kotlinapps.quizapp.UI.customView;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -16,32 +17,35 @@ import com.kotlinapps.quizapp.data.State;
 import com.kotlinapps.quizapp.database.StateRepository;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 public class quizViewModel extends AndroidViewModel {
 
-    public MutableLiveData<List<State>> states = new MutableLiveData<>();
+    //public MutableLiveData<List<State>> states = new MutableLiveData<>();
     private StateRepository stateRepository;
 
+    public MutableLiveData<Integer> count = new MutableLiveData<>();
+    public LiveData<List<State>> state ;
 
 
-    public quizViewModel(@NonNull Application application, int optionCount) {
+
+    public quizViewModel(@NonNull Application application) {
         super(application);
         stateRepository = StateRepository.getStateRepository(application);
-        loadGame(optionCount);
-
-
+        count.setValue(4);
+        loadGame();
     }
 
-    private void loadGame(int optionCount) {
-        try {
-            states.postValue(stateRepository.getQuizStates(optionCount).get());
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
+    private void loadGame() {
+        Log.v("Load game","Load game called");
+        state = Transformations.switchMap(count, new Function<Integer, LiveData<List<State>>>() {
+            @Override
+            public LiveData<List<State>> apply(Integer input) {
+                return stateRepository.getQuizStates(input);
+            }
+        });
     }
 
-    public void refreshGame(int optionCount) {
-        loadGame(optionCount);
+    public void refreshGame() {
+        loadGame();
     }
 }

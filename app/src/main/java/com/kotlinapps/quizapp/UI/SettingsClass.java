@@ -1,7 +1,6 @@
 package com.kotlinapps.quizapp.UI;
 
 import android.os.Bundle;
-import android.widget.Toast;
 
 
 import androidx.appcompat.app.AppCompatDelegate;
@@ -71,7 +70,14 @@ public class SettingsClass extends PreferenceFragmentCompat {
             }
         });
 
-
+        ListPreference optionsPreference = findPreference("options_preference");
+        optionsPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                requireActivity().recreate();
+                return true;
+            }
+        });
 
     }
 

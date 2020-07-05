@@ -43,7 +43,7 @@ public interface StateDao {
     DataSource.Factory<Integer,State> getSortedStates(SupportSQLiteQuery sqLiteQuery);
 
     @RawQuery(observedEntities = State.class)
-    List<State> getQuizStates(SupportSQLiteQuery sqLiteQuery);
+    LiveData<List<State>> getQuizStates(SupportSQLiteQuery sqLiteQuery);
 
     @Query("SELECT DISTINCT * FROM State ORDER BY RANDOM() LIMIT :Value")
     List<State> getQuizStates(int Value);

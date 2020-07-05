@@ -2,6 +2,7 @@ package com.kotlinapps.quizapp.UI.customView;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -45,6 +46,7 @@ public class quizView extends LinearLayout {
     }
 
     public void setData(List<State> states,int value){
+        Log.v("SetData","Set Data called");
         Random random = new Random(System.currentTimeMillis());
         int correctOption = random.nextInt(value);
 

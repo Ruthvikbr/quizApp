@@ -9,6 +9,8 @@ import androidx.preference.PreferenceManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -42,15 +44,16 @@ public class MainActivity extends AppCompatActivity {
         else{
             value = 3;
         }
-        viewModel = new ViewModelProvider(this, new QuizViewModelFactory(this.getApplication(),value)).get(quizViewModel.class);
+        viewModel = new ViewModelProvider(this, new QuizViewModelFactory(this.getApplication())).get(quizViewModel.class);
         view =  findViewById(R.id.quizView);
 
-        viewModel.states.observe(this, new Observer<List<State>>() {
+        viewModel.state.observe(this, new Observer<List<State>>() {
             @Override
             public void onChanged(List<State> states) {
                 if(states != null){
                     if (states.size() == 4 || states.size() == 3) {
                         view.setData(states,value);
+                        Log.v("quizStates",""+states.toString());
                     } else {
                         Toast.makeText(MainActivity.this , "Add More states", Toast.LENGTH_SHORT).show();
                     }
@@ -61,18 +64,18 @@ public class MainActivity extends AppCompatActivity {
         view.setOptionsClickListener(new quizView.optionsClickListener() {
             @Override
             public void OnClicked(Boolean result) {
-                updateResult(result,value);
+                updateResult(result);
             }
         });
     }
-    private void updateResult(Boolean result,int optionCount){
+    private void updateResult(Boolean result){
         if(result){
             Toast.makeText(MainActivity.this , "Correct answer", Toast.LENGTH_SHORT).show();
         }
         else{
             Toast.makeText(MainActivity.this , "Wrong answer", Toast.LENGTH_SHORT).show();
         }
-        viewModel.refreshGame(optionCount);
+        viewModel.refreshGame();
         view.reset();
     }
 
@@ -101,16 +104,17 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences.OnSharedPreferenceChangeListener listener = new SharedPreferences.OnSharedPreferenceChangeListener() {
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-            if(key.equals("Sort_Preference")){
+            if(key.equals("options_preference")){
                 String s = optionsPreference.getString(key,"Four");
-                int val;
+                final int val;
                 if(s.equals("four")){
                     val = 4;
                 }
                 else{
                     val = 3;
                 }
-                viewModel.refreshGame(val);
+                viewModel.count.postValue(val);
+                viewModel.refreshGame();
                 view.reset();
             }
         }
@@ -120,5 +124,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         optionsPreference.unregisterOnSharedPreferenceChangeListener(listener);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        optionsPreference.registerOnSharedPreferenceChangeListener(listener);
     }
 }

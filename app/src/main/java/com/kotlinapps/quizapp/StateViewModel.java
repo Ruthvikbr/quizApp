@@ -23,7 +23,6 @@ public class StateViewModel extends AndroidViewModel {
     public StateViewModel(@NonNull Application application) {
         super(application);
         stateRepository = StateRepository.getStateRepository(application);
-
         sortOrder.setValue("StateID");
         pagedListLiveData = Transformations.switchMap(sortOrder, new Function<String, LiveData<PagedList<State>>>() {
             @Override

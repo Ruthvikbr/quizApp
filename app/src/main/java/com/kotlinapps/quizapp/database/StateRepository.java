@@ -104,15 +104,8 @@ public class StateRepository {
     }
 
 
-    public Future<List<State>> getQuizStates(final int Value) {
-        Callable< List<State>> callable = new Callable< List<State>>() {
-
-            @Override
-            public  List<State> call()  {
-                return mStateDao.getQuizStates(constructQuizStatesQuery(Value));
-            }
-        };
-        return executor.submit(callable);
+    public LiveData<List<State>> getQuizStates(final int Value) {
+       return mStateDao.getQuizStates(constructQuizStatesQuery(Value));
     }
 
     private SupportSQLiteQuery constructQuizStatesQuery(int value){
