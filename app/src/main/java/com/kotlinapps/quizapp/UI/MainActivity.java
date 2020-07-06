@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private quizView view;
     private quizViewModel viewModel;
     private SharedPreferences optionsPreference;
+    private String optionCount;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +37,8 @@ public class MainActivity extends AppCompatActivity {
         optionsPreference = PreferenceManager.getDefaultSharedPreferences(this);
         optionsPreference.registerOnSharedPreferenceChangeListener(listener);
 
-        String optionCount = optionsPreference.getString("options_preference","Four");
+         optionCount = optionsPreference.getString("options_preference","Four");
+        Log.v("Activity",optionCount);
         final int value;
         if(optionCount.equals("four")){
             value = 4;
@@ -104,8 +106,10 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences.OnSharedPreferenceChangeListener listener = new SharedPreferences.OnSharedPreferenceChangeListener() {
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+
             if(key.equals("options_preference")){
-                String s = optionsPreference.getString(key,"Four");
+                String s = optionsPreference.getString(key,"four");
+                Log.v("value",s);
                 final int val;
                 if(s.equals("four")){
                     val = 4;
@@ -129,6 +133,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        optionsPreference.registerOnSharedPreferenceChangeListener(listener);
+        if(!optionCount.equals(optionsPreference.getString("options_preference", "Four"))){
+            viewModel.refreshGame();
+            view.reset();
+            recreate();
+        }
+
+
     }
 }

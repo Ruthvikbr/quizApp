@@ -41,6 +41,7 @@ public class quizView extends LinearLayout {
         void OnClicked(Boolean result);
     }
 
+
     public void setOptionsClickListener(optionsClickListener optionsClickListener){
         this.listener = optionsClickListener;
     }

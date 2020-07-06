@@ -70,14 +70,7 @@ public class SettingsClass extends PreferenceFragmentCompat {
             }
         });
 
-        ListPreference optionsPreference = findPreference("options_preference");
-        optionsPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                requireActivity().recreate();
-                return true;
-            }
-        });
+
 
     }
 

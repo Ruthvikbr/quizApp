@@ -2,6 +2,7 @@ package com.kotlinapps.quizapp.UI.customView;
 
 import android.app.Application;
 import android.util.Log;
+import android.util.Pair;
 
 import androidx.annotation.NonNull;
 
@@ -24,7 +25,10 @@ public class quizViewModel extends AndroidViewModel {
     private StateRepository stateRepository;
 
     public MutableLiveData<Integer> count = new MutableLiveData<>();
+    public MutableLiveData<Integer> increment = new MutableLiveData<>();
     public LiveData<List<State>> state ;
+    int i =0;
+    CustomLiveData trigger ;
 
 
 
@@ -32,20 +36,25 @@ public class quizViewModel extends AndroidViewModel {
         super(application);
         stateRepository = StateRepository.getStateRepository(application);
         count.setValue(4);
+        increment.setValue(i);
+        trigger = new CustomLiveData(count,increment);
         loadGame();
     }
 
     private void loadGame() {
-        Log.v("Load game","Load game called");
-        state = Transformations.switchMap(count, new Function<Integer, LiveData<List<State>>>() {
+        state = Transformations.switchMap(trigger, new Function<Pair<Integer, Integer>, LiveData<List<State>>>() {
             @Override
-            public LiveData<List<State>> apply(Integer input) {
-                return stateRepository.getQuizStates(input);
+            public LiveData<List<State>> apply(Pair<Integer, Integer> input) {
+                return stateRepository.getQuizStates(input.first);
+
             }
         });
+
     }
 
     public void refreshGame() {
+        i++;
+        increment.postValue(i);
         loadGame();
     }
 }
